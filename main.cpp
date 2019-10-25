@@ -30,8 +30,12 @@ int main() {
 
         bool endChecker = false;
         switch (*cur) {
+            case 7: {
+                cur = buffer + *((int *)(++cur));
+                break;
+            }
 #include"../asmCompiler/commands.h"
-            default: printf("Syntax error");
+            default: printf("Syntax error\n");
         }
         if (endChecker) break;
     }
