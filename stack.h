@@ -246,6 +246,10 @@ int  stackPop( Stack_t *stk, stkElem_t *var) {
     return STACK_EMPTY;
 }
 
+size_t stackSize(Stack_t *stk) {
+    return stk->size;
+}
+
 //!
 //! \param stk[in] stack to destruct
 void stackDestruct(Stack_t *stk) {

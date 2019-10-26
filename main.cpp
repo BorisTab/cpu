@@ -20,24 +20,24 @@ int main() {
     if (readFile(binFilePath, buffer, binSize)) perror("Error:");
 
     Stack_t cpuStk = {};
+    Stack_t callStk = {};
     int registers[4] = {};
 
     stackConstruct(&cpuStk);
+    stackConstruct(&callStk);
 
     while (cur < buffer + binSize) {
-#define DEF_CMD(name, num, argType, code) \
+#define DEF_CMD(name, num, argType, code, asmCode) \
         case num: code;
 
         bool endChecker = false;
         switch (*cur) {
-            case 7: {
-                cur = buffer + *((int *)(++cur));
-                break;
-            }
+
 #include"../asmCompiler/commands.h"
             default: printf("Syntax error\n");
         }
         if (endChecker) break;
+//        stackDump(&callStk);
     }
 #undef DEF_CMD
 
