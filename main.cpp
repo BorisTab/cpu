@@ -30,6 +30,19 @@ int main() {
 #define DEF_CMD(name, num, argType, code, asmCode) \
         case num: code;
 
+#define DEF_CJ(func) \
+        int b = stkPop(&cpuStk); \
+        int a = stkPop(&cpuStk); \
+        \
+        if (a func b) { \
+            cur = buffer + *((int *)(++cur)); \
+        } else { \
+            cur += sizeof(char) + sizeof(int); \
+        } \
+        \
+        stackPush(&cpuStk, a); \
+        stackPush(&cpuStk, b);
+
         bool endChecker = false;
         switch (*cur) {
 
@@ -37,8 +50,9 @@ int main() {
             default: printf("Syntax error\n");
         }
         if (endChecker) break;
-//        stackDump(&callStk);
+//        stackDump(&cpuStk);
     }
+#undef DEF_CJ
 #undef DEF_CMD
 
     stackDump(&cpuStk);
