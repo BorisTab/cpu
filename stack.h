@@ -247,12 +247,15 @@ int  stackPop( Stack_t *stk, stkElem_t *var) {
 }
 
 size_t stackSize(Stack_t *stk) {
+    assert(stk);
     return stk->size;
 }
 
 //!
 //! \param stk[in] stack to destruct
 void stackDestruct(Stack_t *stk) {
+    assert(stk);
+
     free(stk->data);
     stk->size = 0;
     stk->maxDataSize = 0;

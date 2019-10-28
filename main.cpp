@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <cerrno>
+#include <math.h>
 
 #include "stack.h"
 
@@ -10,8 +11,8 @@ int readFile(const char inPath[], char *text, size_t textSize);
 
 int stkPop(Stack_t *stk);
 ;
-int main() {
-    char binFilePath[FILENAME_MAX] = "../../asmCompiler/program-v1.bin";
+int main(const int argc, char * const argv[]) {
+    char *binFilePath = argv[argc - 1];
 
     size_t binSize = getFileSize(binFilePath);
     char *buffer = (char *) calloc(binSize, sizeof(char) + 1);
@@ -55,7 +56,7 @@ int main() {
 #undef DEF_CJ
 #undef DEF_CMD
 
-    stackDump(&cpuStk);
+//    stackDump(&cpuStk);
     free(buffer);
     return 0;
 }
@@ -88,7 +89,13 @@ int readFile(const char inPath[], char *text, size_t textSize) {
     return 0;
 }
 
+//! decorator for stackPop
+//!
+//! \param[in] stk stack for pop
+//! \return popped value
 int stkPop(Stack_t *stk) {
+    assert(stk);
+
     int val = 0;
     stackPop(stk, &val);
 
